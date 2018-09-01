@@ -2,6 +2,7 @@ import * as React from 'react';
 import './App.css';
 
 import logo from './logo.svg';
+import Hello from "./components/Hello";
 
 class App extends React.Component {
   public render() {
@@ -13,7 +14,13 @@ class App extends React.Component {
         </header>
         <p className="App-intro">
           To get started, edit <code>src/App.tsx</code> and save to reload.
+
+
         </p>
+          <p>
+              I did just that. And the change happened!!
+          </p>
+          <Hello name="Destroyer" enthusiasmLevel={40} />
       </div>
     );
   }
