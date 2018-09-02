@@ -1,5 +1,29 @@
 body {
-  margin: 0;
-  padding: 0;
-  font-family: sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #daede7;
+}
+
+#root {
+    margin: auto;
+    max-width: 1200px;
+    padding: 5px;
+    border: 1px solid blue;
+    border-radius: 10px;
+    background-color: #eeeeee; /* #e2f5ef; */
+    margin-top: 5px;
+}
+hr {
+    border-top-color: #d6d8c5;
+    margin-top: 8px !important;
+    margin-bottom: 8px !important;
+}
+.network-view {
+
+}
+.round-container {
+    background-color: #ffffff;
+    border: 1px inset grey;
+    padding: 5px;
+    border-radius: 5px;
 }
