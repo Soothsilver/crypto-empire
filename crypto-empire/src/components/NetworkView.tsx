@@ -1,8 +1,8 @@
 import * as React from 'react';
 import {Component} from 'react';
-import {SessionLevelProps} from "./SessionLevelProps";
+import {StateLevelProps} from "./StateLevelProps";
 
-class NetworkView extends Component<SessionLevelProps> {
+class NetworkView extends Component<StateLevelProps> {
     render() {
         return (
             <div className="network-view round-container">

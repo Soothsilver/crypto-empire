@@ -21,6 +21,24 @@ hr {
 .network-view {
 
 }
+.message img {
+    width: 64px;
+    margin-right: 6px;
+}
+.message {
+    border: 1px solid black;
+    border-radius: 4px;
+    padding: 0px 3px  3px 3px;
+    font-family: Tahoma;
+    background-color: #bfe1ff;
+    font-size: 12px;
+    width: 200px;
+}
+.message .message-caption {
+    font-weight: bold;
+    font-size: 14px;
+}
+
 .round-container {
     background-color: #ffffff;
     border: 1px inset grey;

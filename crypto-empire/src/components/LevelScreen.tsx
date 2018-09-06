@@ -25,9 +25,9 @@ class LevelScreen extends Component<LevelScreenProperties> {
     render() {
         return (
             <div>
-                <NetworkView session={this.session} levelScreen={this} />
+                <NetworkView state={this.session.getLastState()} levelScreen={this} />
                 <Timeline session={this.session} levelScreen={this} />
-                <Inventory session={this.session} levelScreen={this}  />
+                <Inventory state={this.session.getLastState()} levelScreen={this}  />
                 <hr />
                 <button onClick={this.returnToMainMenu} className="btn btn-danger btn-sm" title="Return to main menu">Abandon</button>
             </div>
