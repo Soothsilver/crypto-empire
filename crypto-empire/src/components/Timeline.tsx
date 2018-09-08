@@ -15,6 +15,15 @@ class Timeline extends Component<SessionLevelProps> {
                     <div style={{float: "left", paddingLeft: "10px", paddingRight: "10px", paddingTop: "5px"}}>
                         Step {this.props.session.time + 1}
                     </div>
+                    <div style={{float: "left" }} className="victory-bar" hidden={!this.props.levelScreen.session.won}>
+                        <div className="victory-description">
+                            Success!
+                        </div>
+                        <div className="btn-group victory-buttons">
+                            <button className="btn btn-default btn-sm" onClick={this.props.levelScreen.returnToMainMenu}>Back to menu</button>
+                            <button className="btn btn-success btn-sm" onClick={this.props.levelScreen.goToNextLevel} >Next level</button>
+                        </div>
+                    </div>
                     <div style={{float: "right"}}>
                         <button className="btn btn-default btn-sm" onClick={this.advanceTime}>Advance time</button>
                     </div>

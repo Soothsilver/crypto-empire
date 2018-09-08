@@ -7,13 +7,14 @@ import Message from '../components/Message'
 class Inventory extends Component<StateLevelProps> {
     render() {
         return (
-            <div className="round-container">
+            <div className="round-container inventory">
                 <i>Your inventory: </i><br /><br />
                 {
                     this.props.state.inventory.map((information : Information) => {
-                       return (<Message caption={information.caption} subcaption={information.subcaption} information={information}></Message>);
+                       return (<Message caption={information.caption} subcaption={information.subcaption} information={information} levelScreen={this.props.levelScreen}></Message>);
                     })
                 }
+                <div className="clear" />
             </div>
         );
     }

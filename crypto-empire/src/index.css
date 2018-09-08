@@ -19,24 +19,54 @@ hr {
     margin-bottom: 8px !important;
 }
 .network-view {
-
+    height: 500px;
+    position: relative;
 }
-.message img {
-    width: 64px;
-    margin-right: 6px;
+.top-bar {
+    padding: 4px;
+    margin: 0;
+    text-align: center;
+}
+.envelope {
+    position: absolute;
+}
+.top-bar h2 {
+    padding: 0;
+    margin: 0;
+    font-size: 22px;
 }
 .message {
     border: 1px solid black;
     border-radius: 4px;
-    padding: 0px 3px  3px 3px;
+    padding: 0px 3px 3px 3px;
     font-family: Tahoma;
     background-color: #bfe1ff;
     font-size: 12px;
     width: 200px;
+    cursor: context-menu;
+}
+.inventory .message {
+    float: left;
+    margin: 5px;
+}
+.message img {
+    width: 64px;
+    margin-right: 6px;
+    display: block;
 }
 .message .message-caption {
     font-weight: bold;
     font-size: 14px;
+}
+.message-img-div {
+    float: left;
+}
+.message-contents {
+    margin-left: 70px;
+    padding-top: 4px;
+}
+.message-terminator {
+    clear: both;
 }
 
 .round-container {
@@ -44,4 +74,52 @@ hr {
     border: 1px inset grey;
     padding: 5px;
     border-radius: 5px;
+}
+.computer {
+    width: 128px;
+    height: 128px;
+    border: 1px inset grey;
+    border-radius: 4px;
+    text-align: center;
+    background-color: #c3ffe7;
+    padding-top: 8px;
+    cursor: context-menu;
+    position: absolute;
+    left: 0px;
+    top: 0px;
+}
+.computer-name {
+    font-weight: bold;
+}
+.computer .tags-line {
+    text-align: left;
+    padding-left: 4px;
+    padding-top: 4px;
+}
+.computer .tags-line img {
+    width: 24px;
+    cursor: help;
+}
+.computer img {
+    width: 64px;
+}
+.clear {
+    clear: both;
+}
+.victory-bar {
+    float: left;
+}
+.victory-description {
+    float: left;
+    border: 1px solid green;
+    border-radius: 2px;
+    background-color: #c3ffe7;
+    margin-right: 10px;
+    padding: 3px;
+}
+.victory-buttons {
+    float: left;
+}
+.levels button {
+    margin: 5px;
 }

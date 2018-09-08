@@ -2,27 +2,29 @@ import * as React from 'react';
 
 import MainMenu from "./MainMenu";
 import LevelScreen from "./LevelScreen";
+import LevelDefinition from "../levels/LevelDefinition";
+import {levels} from "../levels/Campaign";
 
 
 
 class App extends React.Component {
     goToMainMenu(): void {
-        this.currentLevelName = null;
+        this.currentLevelDefinition = undefined;
         this.forceUpdate();
     }
-    openLevel(levelName: string): any {
-        this.currentLevelName = levelName;
+    openLevel(levelDefinition: LevelDefinition): void {
+        this.currentLevelDefinition = levelDefinition;
         this.forceUpdate();
     }
 
-    currentLevelName: string | null = "1-unencrypted";
+    currentLevelDefinition : LevelDefinition | undefined = levels[1];
 
     public render() {
         return [
-            this.currentLevelName ?
+            this.currentLevelDefinition ?
                 (
                     <div className="everything">
-                        <LevelScreen levelName={this.currentLevelName} app={this} />
+                        <LevelScreen levelDefinition={this.currentLevelDefinition} app={this} />
                     </div>
                 )
                 :
