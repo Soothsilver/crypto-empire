@@ -5,9 +5,10 @@ import ComputerSprite from '../images/computer.png'
 import FileServerIcon from '../images/file-server.png'
 import LockedIcon from '../images/locked.png'
 import Mathematics from "../utils/Mathematics";
-import {$id} from "../utils/Functions";
+import {$id, createSubmenu} from "../utils/Functions";
 import LevelScreen from "./LevelScreen";
 import {Tag} from "../rules/Tag";
+import * as assert from "assert";
 
 interface ComputerProps {
     computer : Computer;
@@ -39,23 +40,23 @@ class ComputerIcon extends Component<ComputerProps> {
            left: this.props.computer.location.x,
            top: this.props.computer.location.y
         });
+        this.componentDidUpdate();
+    }
+
+
+    componentDidUpdate(): void {
         let data : any[] = [{
             header: this.props.computer.name
         }];
-        for (let mo of this.props.computer.addMenuOptions()) {
-            data.push({
-                text: mo.caption,
-                action: (e: any) => {
-                    e.preventDefault();
-                    mo.doWhat();
-                    this.props.levelScreen.refresh();
-                }
-            })
-        }
+        data = data.concat(createSubmenu(this.props.computer.addMenuOptions(), this.props.levelScreen));
+        console.warn("refreshing upon update #" + this.uniqueHtmlId);
+        context.destroy("#" + this.uniqueHtmlId);
+        console.warn("attaching " + data[0].header + " to #" + this.uniqueHtmlId);
         context.attach("#" + this.uniqueHtmlId, data);
     }
 
     componentWillUnmount(): void {
+        console.warn("destroying upon unmount #" + this.uniqueHtmlId);
         context.destroy("#" + this.uniqueHtmlId);
     }
 

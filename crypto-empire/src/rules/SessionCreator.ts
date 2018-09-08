@@ -10,7 +10,9 @@ export default class SessionCreator {
         s.levelNiceName = d.getName();
         s.levelNiceDescription = d.getMissionStatement();
         d.loadInto(s, s.getLastState());
-
+        for (let c of s.getLastState().computers) {
+            c.state = s.getLastState();
+        }
         for (let inf of s.getLastState().inventory) {
             inf.local = true;
         }

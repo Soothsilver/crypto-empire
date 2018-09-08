@@ -45,6 +45,12 @@ hr {
     width: 200px;
     cursor: context-menu;
 }
+.message.algorithm {
+    background-color: #ffd4fe;
+}
+.message.encrypted {
+    background-color: #ffc5bb;
+}
 .inventory .message {
     float: left;
     margin: 5px;

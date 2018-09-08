@@ -1,11 +1,11 @@
 import * as React from 'react';
 import {Component} from 'react';
-import messageIcon from '../images/secured-letter.png'
 import Mathematics from "../utils/Mathematics";
 import Information from "../rules/information/Information";
 import State from "../rules/State";
 import PlaintextInformation from "../rules/information/PlaintextInformation";
 import LevelScreen from "./LevelScreen";
+import {createSubmenu} from "../utils/Functions";
 
 
 interface MessageProps {
@@ -22,9 +22,9 @@ class Message extends Component<MessageProps> {
 
     render() {
         return (
-            <div className="message" id={this.uniqueHtmlId}>
+            <div className={ "message " + this.props.information.getCssClass() } id={this.uniqueHtmlId}>
                 <div className="message-img-div">
-                    <img src={messageIcon}  />
+                    <img src={this.props.information.getIcon()}  />
                 </div>
                 <div className="message-contents">
                     <span className="message-caption">
@@ -40,19 +40,16 @@ class Message extends Component<MessageProps> {
     }
 
     componentDidMount(): void {
+        this.componentDidUpdate();
+    }
+
+
+    componentDidUpdate(): void {
         let data: any[] = [{
             header: this.props.caption
         }];
-        for (let mo of this.props.information.addMenuOptions()) {
-            data.push({
-                text: mo.caption,
-                action: (e: any) => {
-                    e.preventDefault();
-                    mo.doWhat();
-                    this.props.levelScreen.refresh();
-                }
-            })
-        }
+        data = data.concat(createSubmenu(this.props.information.addMenuOptions(), this.props.levelScreen));
+        context.destroy("#" + this.uniqueHtmlId);
         context.attach("#" + this.uniqueHtmlId, data);
     }
 

@@ -8,6 +8,7 @@ import Envelope from "./information/Envelope";
 import MessageReceivedAutoAction from "./autoaction/MessageReceivedAutoAction";
 import StartOfEachTurnAutoAction from "./autoaction/StartOfEachTurnAutoAction";
 import {Locations} from "../levels/BuildingBlocks";
+import Information from "./information/Information";
 
 export class Computer {
 
@@ -15,6 +16,8 @@ export class Computer {
     tags: Tag[];
     location: Point;
     ai: AutoAction[] = [];
+    files: Information[] = [];
+    state: State;
 
     constructor(name : string, tags : Tag[], location: Point) {
         this.name = name;
@@ -24,19 +27,41 @@ export class Computer {
 
 
     addMenuOptions() : IContextMenuOption[] {
-        return [
+        let returnValue : IContextMenuOption[]  = [
             {
                 caption: "Investigate",
                 doWhat: () => {
                     showInformationModal(this.name, "<ul><li>This computer is named <b>" + this.name + "</b>.</li><li>It's <b>secure</b>: You cannot hack it.</li></ul>");
                 }
             }
-        ]
+        ];
+        if (this.tags.includes(Tag.FileServer)) {
+            let downloadables : IContextMenuOption[] = [];
+            for (let f of this.files) {
+                downloadables.push({
+                    caption: f.caption,
+                    doWhat: () => {
+                        this.state.download(f);
+                    }
+                })
+            }
+
+            returnValue.push({
+                caption: "Download",
+                submenu: downloadables
+            })
+        }
+
+        return returnValue;
     }
 
-    copy() : Computer {
+    copy(newState : State) : Computer {
         let c : Computer = new Computer(this.name, this.tags, this.location);
         c.ai = this.ai;
+        c.state = newState;
+        for (let i of this.files) {
+            c.files.push(i.copy(newState));
+        }
         return c;
     }
 

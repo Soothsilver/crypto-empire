@@ -38,12 +38,14 @@ class EnvelopeComponent extends Component<EnvelopeProps> {
                 top: this.props.envelope.requestedLocation.y,
                 opacity: 0
             });
+            $id(this.uniqueHtmlId).css("pointer-events", "none");
         } else {
             $id(this.uniqueHtmlId).animate({
                 left: this.props.envelope.requestedLocation.x,
                 top: this.props.envelope.requestedLocation.y,
                 opacity: 1
             });
+            $id(this.uniqueHtmlId).css("pointer-events", "auto");
         }
     }
 

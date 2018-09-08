@@ -1,4 +1,6 @@
 import State from "../State";
+import messageIcon from '../../images/secured-letter.png'
+
 
 export default abstract class Information {
     public caption: string;
@@ -33,4 +35,12 @@ export default abstract class Information {
     }
 
     abstract copy(newState : State) : Information;
+
+    getIcon(): string {
+        return messageIcon;
+    }
+
+    getCssClass(): string {
+        return "";
+    }
 }

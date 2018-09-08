@@ -5,4 +5,8 @@ the shrine near the Black Stone tomorrow night. What you must will then become c
 
 With darkest regards,
 Alice`;
+    static BobToAlice2: string = `Dear Alice,
+be careful and encrypt your messages from now on. If someone savvy got a wind of our plan...
+
+Anyway, I got your message at the shrine. Most of the map is assembled. Just a couple more pieces...`;
 }

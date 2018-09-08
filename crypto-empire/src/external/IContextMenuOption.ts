@@ -1,4 +1,5 @@
 interface IContextMenuOption {
     caption: string;
-    doWhat: () => void;
+    doWhat?: () => void;
+    submenu?: IContextMenuOption[];
 }

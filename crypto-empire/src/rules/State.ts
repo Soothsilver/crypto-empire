@@ -18,7 +18,7 @@ export default class State {
         let clone = new State();
         clone.session = this.session;
         for (let c of this.computers) {
-            clone.computers.push(c.copy());
+            clone.computers.push(c.copy(clone));
         }
         for (let m of this.inventory) {
             clone.inventory.push(m.copy(clone));
@@ -75,5 +75,15 @@ export default class State {
             }
         }
         throw "No computer with that name exists.";
+    }
+
+    download(f: Information): void {
+        let aCopy = f.copy(f.state);
+        aCopy.local = true;
+        this.inventory.push(aCopy);
+    }
+    createInformation(f: Information): void {
+        f.local = true;
+        this.inventory.push(f);
     }
 }

@@ -3,7 +3,11 @@
  * Copyright Jacob Kelley
  * MIT License
  */
-
+var incrementingNumber = 1;
+function getUniqueIncrementingNumber() {
+	incrementingNumber++;
+	return incrementingNumber;
+}
 var context = context || (function () {
     
 	var options = {
@@ -92,7 +96,7 @@ var context = context || (function () {
 	function addContext(selector, data) {
 		
 		var d = new Date(),
-			id = d.getTime(),
+			id = d.getTime() + getUniqueIncrementingNumber(),
 			$menu = buildMenu(data, id);
 			
 		$('body').append($menu);
