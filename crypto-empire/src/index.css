@@ -44,12 +44,18 @@ hr {
     font-size: 12px;
     width: 200px;
     cursor: context-menu;
+    overflow-wrap: break-word;
+    overflow: hidden;
+    height: 69px;
 }
 .message.algorithm {
     background-color: #ffd4fe;
 }
 .message.encrypted {
     background-color: #ffc5bb;
+}
+.message.key {
+    background-color: #feffb3;
 }
 .inventory .message {
     float: left;
@@ -63,6 +69,7 @@ hr {
 .message .message-caption {
     font-weight: bold;
     font-size: 14px;
+    overflow: hidden;
 }
 .message-img-div {
     float: left;
@@ -128,4 +135,7 @@ hr {
 }
 .levels button {
     margin: 5px;
+}
+#infotext {
+    overflow-wrap: break-word;
 }

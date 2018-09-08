@@ -2,6 +2,7 @@ import Information from "./Information";
 import Point from "../Point";
 import {Computer} from "../Computer";
 import State from "../State";
+import Mathematics from "../../utils/Mathematics";
 
 export default class Envelope {
     recipient: Computer;
@@ -11,11 +12,13 @@ export default class Envelope {
     requestedLocation: Point;
     reachedDestination: boolean;
     requestedFadeOut: boolean;
+    identification: string;
 
     constructor(sender : Computer, recipient: Computer, message: Information) {
         this.message = message;
         this.sender = sender;
         this.recipient = recipient;
+        this.identification = Mathematics.getUniqueId();
     }
 
     copy(newstate : State) : Envelope {
@@ -24,6 +27,7 @@ export default class Envelope {
         e.requestedLocation = this.location;
         e.reachedDestination = this.reachedDestination;
         e.requestedFadeOut = this.requestedFadeOut;
+        e.identification = this.identification;
         return e;
     }
 }

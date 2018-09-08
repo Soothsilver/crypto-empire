@@ -9,4 +9,7 @@ Alice`;
 be careful and encrypt your messages from now on. If someone savvy got a wind of our plan...
 
 Anyway, I got your message at the shrine. Most of the map is assembled. Just a couple more pieces...`;
+    static AliceToBob3: string = `We can invent an appropriate story here later.
+    
+For now, this is just a lorem ipsum text.For now, this is just a lorem ipsum text.For now, this is just a lorem ipsum text.For now, this is just a lorem ipsum text.For now, this is just a lorem ipsum text.For now, this is just a lorem ipsum text.For now, this is just a lorem ipsum text.For now, this is just a lorem ipsum text.For now, this is just a lorem ipsum text.For now, this is just a lorem ipsum text.For now, this is just a lorem ipsum text.For now, this is just a lorem ipsum text.For now, this is just a lorem ipsum text.For now, this is just a lorem ipsum text.For now, this is just a lorem ipsum text.For now, this is just a lorem ipsum text.For now, this is just a lorem ipsum text.For now, this is just a lorem ipsum text.For now, this is just a lorem ipsum text.For now, this is just a lorem ipsum text.For now, this is just a lorem ipsum text.For now, this is just a lorem ipsum text.`;
 }

@@ -15,7 +15,19 @@ export default abstract class Information {
     }
 
     addMenuOptions() : IContextMenuOption[] {
-        if (!this.local) {
+        if (this.local) {
+            return [
+                {
+                    caption: "Delete",
+                    doWhat: () => {
+                        let number = this.state.inventory.indexOf(this);
+                        if (number != -1) {
+                            this.state.inventory.splice(number, 1);
+                        }
+                    }
+                }
+            ]
+        } else {
             return [
                 {
                     caption: "Download",
@@ -28,13 +40,15 @@ export default abstract class Information {
                         this.state.inventory.push(copiedMessage);
                     }
                 }
-            ]
-        } else {
-            return [];
+            ];
         }
     }
 
     abstract copy(newState : State) : Information;
+
+    protected addBaseInformationToCopy(copy : Information) {
+        copy.local = this.local;
+    }
 
     getIcon(): string {
         return messageIcon;

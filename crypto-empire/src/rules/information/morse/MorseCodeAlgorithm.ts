@@ -1,8 +1,8 @@
-import Information from "./Information";
-import State from "../State";
-import Algorithm from "./Algorithm";
+import Information from "../Information";
+import State from "../../State";
+import Algorithm from "../Algorithm";
 import MorseCodeInformation from "./MorseCodeInformation";
-import AsciiInformation from "./AsciiInformation";
+import AsciiInformation from "../AsciiInformation";
 
 export default class MorseCodeAlgorithm extends Algorithm {
 
@@ -11,7 +11,9 @@ export default class MorseCodeAlgorithm extends Algorithm {
     }
 
     copy(newState: State): Information {
-        return new MorseCodeAlgorithm(newState);
+        let copy = new MorseCodeAlgorithm(newState);
+        this.addBaseInformationToCopy(copy);
+        return copy;
     }
 
 

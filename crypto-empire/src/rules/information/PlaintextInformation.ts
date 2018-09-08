@@ -11,6 +11,8 @@ export default class PlaintextInformation extends AsciiInformation {
     }
 
     copy(newState : State): PlaintextInformation {
-        return new PlaintextInformation(this.caption, this.subcaption, this.fulltext, newState);
+        let copy = new PlaintextInformation(this.caption, this.subcaption, this.fulltext, newState);
+        this.addBaseInformationToCopy(copy);
+        return copy;
     }
 }

@@ -1,14 +1,13 @@
-import Information from "./Information";
-import {prettifyMessage, showInformationModal} from "../../utils/Functions";
-import State from "../State";
-import AsciiInformation from "./AsciiInformation";
+import Information from "../Information";
+import {prettifyMessage, showInformationModal} from "../../../utils/Functions";
+import State from "../../State";
+import AsciiInformation from "../AsciiInformation";
 import MorseCodeAlgorithm from "./MorseCodeAlgorithm";
-import Ciphertext from "./Ciphertext";
+import Ciphertext from "../Ciphertext";
 
 
 
 export default class MorseCodeInformation extends Ciphertext {
-    plaintext: AsciiInformation;
 
     constructor(plaintext : AsciiInformation, state : State) {
         super(MorseCodeAlgorithm.encrypt(plaintext.caption), MorseCodeAlgorithm.encrypt(plaintext.subcaption), state, MorseCodeAlgorithm.encrypt(plaintext.fulltext));
@@ -20,7 +19,8 @@ export default class MorseCodeInformation extends Ciphertext {
     }
 
     copy(newState : State): MorseCodeInformation {
-        let pi = new MorseCodeInformation(this.plaintext.copy(newState), newState)
-        return pi;
+        let copy = new MorseCodeInformation(this.plaintext.copy(newState), newState);
+        this.addBaseInformationToCopy(copy);
+        return copy;
     }
 }
