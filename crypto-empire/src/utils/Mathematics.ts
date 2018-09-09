@@ -16,7 +16,7 @@ export default class Mathematics {
         };
     }
 
-    static subtract(one: Point, two: Point) {
+    static subtract(one: Point, two: Point) : Point {
         return {
             x: one.x - two.x,
             y: one.y - two.y

@@ -2,10 +2,10 @@ import Information from "./information/Information";
 import {Computer} from "./Computer";
 import Envelope from "./information/Envelope";
 import {findMidwayPoint} from "../utils/Functions";
-import ComputerIcon from "../components/ComputerIcon";
 import Message from "../components/Message";
 import Mathematics from "../utils/Mathematics";
 import Session from "./Session";
+import {Tag} from "./Tag";
 
 
 export default class State {
@@ -13,6 +13,8 @@ export default class State {
     public inventory: Information[] = [];
     public messages: Envelope[] = [];
     public session: Session;
+    public lossReason: string;
+    public lost: boolean;
 
     copy(): State {
         let clone = new State();
@@ -26,6 +28,8 @@ export default class State {
         for (let m of this.messages) {
             clone.messages.push(m.copy(clone));
         }
+        clone.lossReason = this.lossReason;
+        clone.lost = this.lost;
         return clone;
     }
 
@@ -43,10 +47,9 @@ export default class State {
             }
             m.reachedDestination = true;
             m.location = m.requestedLocation;
-            let reclocation = Mathematics.subtract(
+            m.requestedLocation = Mathematics.subtract(
                 Mathematics.toCenterComputer(m.recipient.location),
                 ({x: Message.WIDTH / 2, y: Message.HEIGHT / 2}));
-            m.requestedLocation = reclocation;
             m.requestedFadeOut = true;
             m.recipient.acceptEnvelope(m, this);
         }
@@ -56,15 +59,19 @@ export default class State {
     }
 
     spawnMessage(sender: Computer, recipient: Computer, message: Information) {
+        sender = this.findComputer(sender.name);
+        recipient = this.findComputer(recipient.name);
+
         let e = new Envelope(sender, recipient, message);
+        message.local = false;
         e.location = Mathematics.subtract(
             Mathematics.toCenterComputer(sender.location),
             ({x: Message.WIDTH / 2, y: Message.HEIGHT / 2}));
 
-        var reclocation = Mathematics.subtract(
+        const recipientLocation = Mathematics.subtract(
             Mathematics.toCenterComputer(recipient.location),
             ({x: Message.WIDTH / 2, y: Message.HEIGHT / 2}));
-        e.requestedLocation = findMidwayPoint(e.location, reclocation);
+        e.requestedLocation = findMidwayPoint(e.location, recipientLocation);
         this.messages.push(e);
     }
 
@@ -82,8 +89,31 @@ export default class State {
         aCopy.local = true;
         this.inventory.push(aCopy);
     }
+
     createInformation(f: Information): void {
         f.local = true;
         this.inventory.push(f);
+    }
+
+    fail(failReason: string) {
+        this.lost = true;
+        this.lossReason = failReason;
+    }
+
+    you() : Computer | undefined {
+        for (let computer of this.computers) {
+            if (computer.tags.includes(Tag.You)) {
+                return computer;
+            }
+        }
+        return undefined;
+    }
+
+    destroyMessage(information: Information): void {
+        for (let i = 0; i < this.messages.length; i++) {
+            if (this.messages[i].message == information) {
+                this.messages.splice(i, 1);
+            }
+        }
     }
 }

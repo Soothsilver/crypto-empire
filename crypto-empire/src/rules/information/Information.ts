@@ -1,5 +1,8 @@
 import State from "../State";
 import messageIcon from '../../images/secured-letter.png'
+import ContextMenuOption from "../../external/ContextMenuOption";
+import ContextMenuSubmenu from "../../external/ContextMenuSubmenu";
+import {Computer} from "../Computer";
 
 
 export default abstract class Information {
@@ -15,8 +18,9 @@ export default abstract class Information {
     }
 
     addMenuOptions() : IContextMenuOption[] {
+        let options : IContextMenuOption[] = [];
         if (this.local) {
-            return [
+            options = [
                 {
                     caption: "Delete",
                     doWhat: () => {
@@ -25,10 +29,23 @@ export default abstract class Information {
                             this.state.inventory.splice(number, 1);
                         }
                     }
+                },
+                {
+                    caption: "Rename",
+                    doWhat: () => {
+                        let newname = window.prompt("Rename '" + this.caption + "' to what?", this.caption);
+                        if (newname) {
+                            this.caption = newname;
+                        }
+                    }
                 }
-            ]
+            ];
+            if (this.state.session.youAreActiveAttacker) {
+                options.push(new ContextMenuSubmenu("Upload to",
+                    this.state.computers.map(computer => new ContextMenuOption(computer.name, () => this.state.spawnMessage(this.state.you() as Computer, computer, this.copy(this.state))))));
+            }
         } else {
-            return [
+            options = [
                 {
                     caption: "Download",
                     doWhat: () => {
@@ -41,7 +58,14 @@ export default abstract class Information {
                     }
                 }
             ];
+            if (this.state.session.youAreActiveAttacker) {
+                options.push(new ContextMenuOption("Destroy",
+                    ()=>{
+                        this.state.destroyMessage(this);
+                    }));
+            }
         }
+        return options;
     }
 
     abstract copy(newState : State) : Information;

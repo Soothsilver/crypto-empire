@@ -130,6 +130,14 @@ hr {
     margin-right: 10px;
     padding: 3px;
 }
+.loss-description {
+    float: left;
+    border: 1px solid red;
+    border-radius: 2px;
+    background-color: #ffbfb6;
+    margin-right: 10px;
+    padding: 3px;
+}
 .victory-buttons {
     float: left;
 }

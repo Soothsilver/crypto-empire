@@ -7,7 +7,7 @@ import NetworkView from "./NetworkView";
 import Timeline from "./Timeline";
 import Inventory from "./Inventory";
 import LevelDefinition from "../levels/LevelDefinition";
-import {getFollowingLevel} from "../utils/Functions";
+import {getFollowingLevel, prettifyMessage, showInformationModal} from "../utils/Functions";
 
 interface LevelScreenProperties {
     levelDefinition : LevelDefinition;
@@ -24,6 +24,9 @@ class LevelScreen extends Component<LevelScreenProperties> {
         super(props);
         this.returnToMainMenu = this.returnToMainMenu.bind(this);
         this.goToNextLevel = this.goToNextLevel.bind(this);
+        this.viewObjectives = this.viewObjectives.bind(this);
+        this.viewLossReason = this.viewLossReason.bind(this);
+        this.nextLevelExists = this.nextLevelExists.bind(this);
         this.lastLevelDefinition = this.props.levelDefinition;
         this.session = SessionCreator.createLevel(this.props.levelDefinition);
     }
@@ -43,7 +46,10 @@ class LevelScreen extends Component<LevelScreenProperties> {
                 <Timeline session={this.session} levelScreen={this} />
                 <Inventory state={this.session.getLastState()} levelScreen={this}  />
                 <hr />
-                <button onClick={this.returnToMainMenu} className="btn btn-danger btn-sm" title="Return to main menu">Abandon</button>
+                <div className="btng-group">
+                      <button onClick={this.viewObjectives} className="btn btn-default btn-sm" title={this.session.objectives}>View objectives</button>
+                      <button onClick={this.returnToMainMenu} className="btn btn-danger btn-sm" title="Return to main menu">Abandon</button>
+                </div>
             </div>
         );
     }
@@ -62,6 +68,19 @@ class LevelScreen extends Component<LevelScreenProperties> {
         if (followingLevel != undefined) {
             this.props.app.openLevel(followingLevel);
         }
+    }
+
+    viewObjectives() {
+        showInformationModal("Your objectives", prettifyMessage(this.session.objectives));
+    }
+
+    viewLossReason() {
+        showInformationModal("Reason for your loss", prettifyMessage(this.session.getLastState().lossReason));
+    }
+
+    nextLevelExists(): boolean {
+        let followingLevel = getFollowingLevel(this.props.levelDefinition);
+        return followingLevel != undefined;
     }
 }
 

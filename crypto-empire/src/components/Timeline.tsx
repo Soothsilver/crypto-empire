@@ -21,11 +21,20 @@ class Timeline extends Component<SessionLevelProps> {
                         </div>
                         <div className="btn-group victory-buttons">
                             <button className="btn btn-default btn-sm" onClick={this.props.levelScreen.returnToMainMenu}>Back to menu</button>
-                            <button className="btn btn-success btn-sm" onClick={this.props.levelScreen.goToNextLevel} >Next level</button>
+                            <button className="btn btn-success btn-sm" onClick={this.props.levelScreen.goToNextLevel} disabled={!this.props.levelScreen.nextLevelExists()}>Next level</button>
+                        </div>
+                    </div>
+                    <div style={{float: "left" }} className="victory-bar" hidden={!this.props.levelScreen.session.getLastState().lost}>
+                        <div className="loss-description">
+                            Fail!
+                        </div>
+                        <div className="btn-group victory-buttons">
+                            <button className="btn btn-default btn-sm" onClick={this.props.levelScreen.returnToMainMenu}>Back to menu</button>
+                            <button className="btn btn-default btn-sm" onClick={this.props.levelScreen.viewLossReason}>Why did I lose?</button>
                         </div>
                     </div>
                     <div style={{float: "right"}}>
-                        <button className="btn btn-default btn-sm" onClick={this.advanceTime}>Advance time</button>
+                        <button className="btn btn-default btn-sm" onClick={this.advanceTime} disabled={this.props.levelScreen.session.getLastState().lost}>Advance time</button>
                     </div>
                 </div>
                 <div style={{clear: "both"}}>

@@ -5,6 +5,8 @@ import ComputerSprite from '../images/computer.png'
 import FileServerIcon from '../images/file-server.png'
 import LockedIcon from '../images/locked.png'
 import Mathematics from "../utils/Mathematics";
+import HackerIcon from "../images/hacker.jpg";
+import FistIcon from "../images/fist.png";
 import {$id, createSubmenu} from "../utils/Functions";
 import LevelScreen from "./LevelScreen";
 import {Tag} from "../rules/Tag";
@@ -29,6 +31,8 @@ class ComputerIcon extends Component<ComputerProps> {
                 <div className="tags-line">
                     <img src={LockedIcon} title="SECURE. You cannot hack this computer." hidden={!this.props.computer.tags.includes(Tag.Secure)} />
                     <img src={FileServerIcon} title="FILE SERVER. Right-click this computer to download files from it." hidden={!this.props.computer.tags.includes(Tag.FileServer)} />
+                    <img src={HackerIcon} title="YOUR CONTROL. This computer is under your control." hidden={!this.props.computer.tags.includes(Tag.You)} />
+                    <img src={FistIcon} title="ACTIVE ATTACKER. This computer has the power to send and destroy messages." hidden={!this.props.computer.tags.includes(Tag.ActiveAttacker)} />
                 </div>
             </div>
         );

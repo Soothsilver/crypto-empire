@@ -6,10 +6,14 @@ export default class Session {
     public levelNiceName: string = "Unnamed level";
     public levelNiceDescription: string = "";
     won: boolean;
+    lost: boolean;
+    lossReason: string = "You have not lost yet. You are seeing this message because of a bug in the Crypto Empire game.";
     /**
      * You will win when you read this text.
      */
     winOnReading: string;
+    youAreActiveAttacker: boolean;
+    objectives: string = "Read the plaintext message.";
 
     constructor() {
         let state = new State();
@@ -30,5 +34,10 @@ export default class Session {
     rewindTime() {
         this.time--;
         this.stateStack.pop();
+    }
+
+    fail(reason: string) {
+        this.lost = true;
+        this.lossReason = reason;
     }
 }

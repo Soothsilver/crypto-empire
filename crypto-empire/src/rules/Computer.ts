@@ -81,7 +81,7 @@ export class Computer {
     acceptEnvelope(m: Envelope, state : State): void {
         for (let aa of this.ai) {
             if (aa.trigger == AutoActionTriggerKind.MessageReceived) {
-                (aa as MessageReceivedAutoAction).action(m.message);
+                (aa as MessageReceivedAutoAction).action(m.message, state);
             }
         }
     }
@@ -96,5 +96,13 @@ export class Computer {
 
     static Frank() {
         return new Computer("Frank", [ Tag.Secure, Tag.FileServer], Locations.Leftmost );
+    }
+
+    static Mallory() {
+        return new Computer("Mallory", [ Tag.You, Tag.ActiveAttacker ], Locations.Bottom);
+    }
+
+    static Headquarters() {
+        return new Computer("Headquarters", [ Tag.Secure ], Locations.Bottomleft);
     }
 }
