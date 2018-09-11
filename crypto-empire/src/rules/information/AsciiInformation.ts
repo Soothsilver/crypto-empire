@@ -12,7 +12,21 @@ export default abstract class AsciiInformation extends Information{
     }
 
     addMenuOptions(): IContextMenuOption[] {
-        return super.addMenuOptions().concat([
+        let options = super.addMenuOptions();
+        for (let i = 0; i < 2; i++) {
+            let suboptions : IContextMenuOption[] = [];
+            for (let j = 0; j < 20; j++) {
+                suboptions.push({
+                    caption: "Option X",
+                    doWhat: ()=>{}
+                });
+            }
+            options.push({
+                caption: "A submenu",
+                submenu: suboptions
+            });
+        }
+        options = options.concat([
             {
                 caption: "Read",
                 doWhat: () => {
@@ -24,6 +38,7 @@ export default abstract class AsciiInformation extends Information{
                 }
             }
         ]);
+        return options;
     }
 
 

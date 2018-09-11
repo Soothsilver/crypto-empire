@@ -60,6 +60,7 @@ class LevelScreen extends Component<LevelScreenProperties> {
 
     refresh() {
         $("body .dropdown-menu").remove();
+        context.unattachAllClicks();
         this.forceUpdate();
     }
 

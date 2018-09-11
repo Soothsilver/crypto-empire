@@ -21,10 +21,11 @@ var context = context || (function () {
 	};
 
 	function initialize(opts) {
-		
+		console.warn("initialize");
 		options = $.extend({}, options, opts);
 		
 		$(document).on('click', 'html', function () {
+            console.warn("onclick");
 			$('.dropdown-context').fadeOut(options.fadeSpeed, function(){
 				$('.dropdown-context').css({display:''}).find('.drop-left').removeClass('drop-left');
 			});
@@ -35,22 +36,43 @@ var context = context || (function () {
 			});
 		}
 		$(document).on('mouseenter', '.dropdown-submenu', function(){
+            console.warn("thing");
 			var $sub = $(this).find('.dropdown-context-sub:first'),
 				subWidth = $sub.width(),
 				subLeft = $sub.offset().left,
 				collision = (subWidth+subLeft) > window.innerWidth;
+			console.warn("collision detection, height " + $sub.height());
+			let subHeight = $sub.height();
+			let subUp = $sub.offset().top;
+			let verticalCollision = (subHeight + subUp) > window.innerHeight - 50;
+			let difference = window.innerHeight - 50 - subHeight - subUp;
 			if(collision){
-				$sub.addClass('drop-left');
+				$sub.css({
+					left: - subWidth
+				});
+				console.warn("horizontal collision detected");
+			}
+			if (verticalCollision) {
+                console.warn("vertical collision detected");
+                $sub.addClass('dropdown-context-up');
+                $sub.css({
+					top: difference
+				});
+			} else {
+                console.warn("vertical collision removed");
+                $sub.removeClass('dropdown-context-up');
 			}
 		});
 		
 	}
 
 	function updateOptions(opts){
+		console.warn("updateOptions");
 		options = $.extend({}, options, opts);
 	}
 
 	function buildMenu(data, id, subMenu) {
+		console.warn("buildMenu");
 		var subClass = (subMenu) ? ' dropdown-context-sub' : '',
 			compressed = options.compress ? ' compressed-context' : '',
 			$menu = $('<ul class="dropdown-menu dropdown-context' + subClass + compressed+'" id="dropdown-' + id + '"></ul>');
@@ -78,7 +100,7 @@ var context = context || (function () {
 						eventAction = data[i].action;
 					$sub.find('a').attr('id', actionID);
 					$('#' + actionID).addClass('context-event');
-					$(document).on('click', '#' + actionID, eventAction);
+					$(document).on('click.contextjs', '#' + actionID, eventAction);
 				}
 				$menu.append($sub);
 				if (typeof data[i].subMenu != 'undefined') {
@@ -94,6 +116,7 @@ var context = context || (function () {
 	}
 
 	function addContext(selector, data) {
+        console.warn("addcontext");
 		
 		var d = new Date(),
 			id = d.getTime() + getUniqueIncrementingNumber(),
@@ -133,13 +156,19 @@ var context = context || (function () {
 	}
 	
 	function destroyContext(selector) {
+        console.warn("destroycontext");
 		$(document).off('contextmenu', selector).off('click', '.context-event');
 	}
+	function unattachAllClicks() {
+        console.warn("unattaching");
+        $(document).off('click.contextjs');
+    }
 	
 	return {
 		init: initialize,
 		settings: updateOptions,
 		attach: addContext,
+		unattachAllClicks: unattachAllClicks,
 		destroy: destroyContext
 	};
 })();

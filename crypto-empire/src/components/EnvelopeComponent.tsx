@@ -17,6 +17,7 @@ class EnvelopeComponent extends Component<EnvelopeProps> {
 
     render() {
         return (<div className="envelope" id={this.uniqueHtmlId}
+                     hidden={this.props.envelope.ceasedToExist}
                      style={{left: this.props.envelope.location.x, top: this.props.envelope.location.y, opacity: 0}}>
             <Message caption={this.props.envelope.message.caption} subcaption={this.props.envelope.message.subcaption}
                      information={this.props.envelope.message} levelScreen={this.props.levelScreen}/>

@@ -40,9 +40,11 @@ export default class State {
     stepBegins(time: number) {
         for (let mi = 0; mi < this.messages.length; mi++) {
             let m = this.messages[mi];
+            if (m.ceasedToExist) {
+                continue;
+            }
             if (m.reachedDestination) {
-                this.messages.splice(mi, 1);
-                mi--;
+                m.ceasedToExist = true;
                 continue;
             }
             m.reachedDestination = true;
@@ -112,7 +114,8 @@ export default class State {
     destroyMessage(information: Information): void {
         for (let i = 0; i < this.messages.length; i++) {
             if (this.messages[i].message == information) {
-                this.messages.splice(i, 1);
+                this.messages[i].ceasedToExist = true;
+                return;
             }
         }
     }

@@ -13,6 +13,7 @@ export default class Envelope {
     reachedDestination: boolean;
     requestedFadeOut: boolean;
     identification: string;
+    ceasedToExist: boolean;
 
     constructor(sender : Computer, recipient: Computer, message: Information) {
         this.message = message;
@@ -28,6 +29,7 @@ export default class Envelope {
         e.reachedDestination = this.reachedDestination;
         e.requestedFadeOut = this.requestedFadeOut;
         e.identification = this.identification;
+        e.ceasedToExist = this.ceasedToExist;
         return e;
     }
 }
