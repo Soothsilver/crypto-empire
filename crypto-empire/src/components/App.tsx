@@ -17,7 +17,7 @@ class App extends React.Component {
         this.forceUpdate();
     }
 
-    currentLevelDefinition : LevelDefinition | undefined = levels[3];
+    currentLevelDefinition : LevelDefinition | undefined = levels[5];
 
     public render() {
         return [

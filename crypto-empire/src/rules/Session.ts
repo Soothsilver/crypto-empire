@@ -14,6 +14,7 @@ export default class Session {
     winOnReading: string;
     youAreActiveAttacker: boolean;
     objectives: string = "Read the plaintext message.";
+    minimumVictoryTurn: number = 0;
 
     constructor() {
         let state = new State();

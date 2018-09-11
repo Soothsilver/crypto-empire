@@ -38,7 +38,8 @@ export default class State {
      * @param time What time step begins. The first click of 'Advance time' will create time step 2.
      */
     stepBegins(time: number) {
-        for (let mi = 0; mi < this.messages.length; mi++) {
+        let currentMessagesLength = this.messages.length;
+        for (let mi = 0; mi < currentMessagesLength; mi++) {
             let m = this.messages[mi];
             if (m.ceasedToExist) {
                 continue;

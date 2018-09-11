@@ -21,10 +21,6 @@ export default abstract class AsciiInformation extends Information{
                     doWhat: ()=>{}
                 });
             }
-            options.push({
-                caption: "A submenu",
-                submenu: suboptions
-            });
         }
         options = options.concat([
             {

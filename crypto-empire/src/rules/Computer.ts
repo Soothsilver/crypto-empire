@@ -9,6 +9,7 @@ import MessageReceivedAutoAction from "./autoaction/MessageReceivedAutoAction";
 import StartOfEachTurnAutoAction from "./autoaction/StartOfEachTurnAutoAction";
 import {Locations} from "../levels/BuildingBlocks";
 import Information from "./information/Information";
+import PlaintextInformation from "./information/PlaintextInformation";
 
 export class Computer {
 
@@ -95,7 +96,23 @@ export class Computer {
     }
 
     static Frank() {
-        return new Computer("Frank", [ Tag.Secure, Tag.FileServer], Locations.Leftmost );
+        let frank = new Computer("Frank", [ Tag.Secure, Tag.FileServer], Locations.Leftmost );
+        frank.ai.push(new MessageReceivedAutoAction((msg, state)=>{
+            if (msg instanceof PlaintextInformation && msg.caption == "Download request") {
+                // Don't store requests.
+                return;
+            }
+            let ff = state.findComputer(frank.name);
+            for (let fi = 0; fi < ff.files.length; fi++) {
+                let file = ff.files[fi];
+                if (file.caption == msg.caption) {
+                    ff.files[fi] = msg.copy(state);
+                    return;
+                }
+            }
+            ff.files.push(msg.copy(state));
+        }));
+        return frank;
     }
 
     static Mallory() {

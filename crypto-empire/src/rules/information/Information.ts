@@ -3,6 +3,7 @@ import messageIcon from '../../images/secured-letter.png'
 import ContextMenuOption from "../../external/ContextMenuOption";
 import ContextMenuSubmenu from "../../external/ContextMenuSubmenu";
 import {Computer} from "../Computer";
+import {Tag} from "../Tag";
 
 
 export default abstract class Information {
@@ -42,7 +43,7 @@ export default abstract class Information {
             ];
             if (this.state.session.youAreActiveAttacker) {
                 options.push(new ContextMenuSubmenu("Upload to",
-                    this.state.computers.map(computer => new ContextMenuOption(computer.name, () => this.state.spawnMessage(this.state.you() as Computer, computer, this.copy(this.state))))));
+                    this.state.computers.filter(computer => !computer.tags.includes(Tag.Firewall)).map(computer => new ContextMenuOption(computer.name, () => this.state.spawnMessage(this.state.you() as Computer, computer, this.copy(this.state))))));
             }
         } else {
             options = [

@@ -22,4 +22,6 @@ Be alone.`;
 We'll meet at 21.30 under the ancient bridge.
 
 Be alone.`;
+    static Plaintext: string = "This is the message that Alice wants to send to Bob.";
+    static FakePlaintext: string = "Replace the good message with this fake one.";
 }

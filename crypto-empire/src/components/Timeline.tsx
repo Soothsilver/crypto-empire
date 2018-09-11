@@ -15,7 +15,7 @@ class Timeline extends Component<SessionLevelProps> {
                     <div style={{float: "left", paddingLeft: "10px", paddingRight: "10px", paddingTop: "5px"}}>
                         Step {this.props.session.time + 1}
                     </div>
-                    <div style={{float: "left" }} className="victory-bar" hidden={!this.props.levelScreen.session.won}>
+                    <div style={{float: "left" }} className="victory-bar" hidden={!this.props.levelScreen.session.won || this.props.levelScreen.session.getLastState().lost || this.props.levelScreen.session.time + 1 < this.props.levelScreen.session.minimumVictoryTurn}>
                         <div className="victory-description">
                             Success!
                         </div>
