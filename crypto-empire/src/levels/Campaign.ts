@@ -6,6 +6,7 @@ import MalloryIntro from "./malloryIntro";
 import Rsa1 from "./rsa1";
 import Rsa2 from "./rsa2";
 import Trash from "./trash";
+import FirstTrent from "./firsttrent";
 
 export const levels : LevelDefinition[] = [
     new Unencrypted(),
@@ -14,5 +15,6 @@ export const levels : LevelDefinition[] = [
     new MalloryIntro(),
     new Rsa1(),
     new Rsa2(),
-    new Trash()
+    new Trash(),
+    new FirstTrent()
 ];

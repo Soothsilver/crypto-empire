@@ -10,6 +10,7 @@ import StartOfEachTurnAutoAction from "./autoaction/StartOfEachTurnAutoAction";
 import {Locations} from "../levels/BuildingBlocks";
 import Information from "./information/Information";
 import PlaintextInformation from "./information/PlaintextInformation";
+import Virus from "./information/Virus";
 
 export class Computer {
 
@@ -24,6 +25,12 @@ export class Computer {
         this.name = name;
         this.tags = tags;
         this.location = location;
+        this.ai.push(new MessageReceivedAutoAction((msg : Information,state : State) => {
+            let self = state.findComputer(name);
+            if (msg instanceof Virus && !self.tags.includes(Tag.Secure)) {
+                state.findComputer(name).becomePublicFileServer();
+            }
+        }));
     }
 
 
@@ -96,22 +103,8 @@ export class Computer {
     }
 
     static Frank() {
-        let frank = new Computer("Frank", [ Tag.Secure, Tag.FileServer], Locations.Leftmost );
-        frank.ai.push(new MessageReceivedAutoAction((msg, state)=>{
-            if (msg instanceof PlaintextInformation && msg.caption == "Download request") {
-                // Don't store requests.
-                return;
-            }
-            let ff = state.findComputer(frank.name);
-            for (let fi = 0; fi < ff.files.length; fi++) {
-                let file = ff.files[fi];
-                if (file.caption == msg.caption) {
-                    ff.files[fi] = msg.copy(state);
-                    return;
-                }
-            }
-            ff.files.push(msg.copy(state));
-        }));
+        let frank = new Computer("Frank", [ Tag.Secure ], Locations.Leftmost );
+        frank.becomePublicFileServer();
         return frank;
     }
 
@@ -121,5 +114,28 @@ export class Computer {
 
     static Headquarters() {
         return new Computer("Headquarters", [ Tag.Secure ], Locations.Bottomleft);
+    }
+
+    static Trent() {
+        return new Computer("Trent", [ Tag.Secure, Tag.Trusted ], Locations.Top);
+    }
+
+    becomePublicFileServer() {
+        this.tags.push(Tag.FileServer);
+        this.ai.push(new MessageReceivedAutoAction((msg, state)=>{
+            if (msg instanceof PlaintextInformation && msg.caption == "Download request") {
+                // Don't store requests.
+                return;
+            }
+            let ff = state.findComputer(this.name);
+            for (let fi = 0; fi < ff.files.length; fi++) {
+                let file = ff.files[fi];
+                if (file.caption == msg.caption) {
+                    ff.files[fi] = msg.copy(state);
+                    return;
+                }
+            }
+            ff.files.push(msg.copy(state));
+        }));
     }
 }

@@ -54,8 +54,14 @@ hr {
 .message.encrypted {
     background-color: #ffc5bb;
 }
+.message.virus {
+    background-color: #ff9176;
+}
 .message.key {
     background-color: #feffb3;
+}
+.message.archive {
+    background-color: #ffefc5;
 }
 .inventory .message {
     float: left;
