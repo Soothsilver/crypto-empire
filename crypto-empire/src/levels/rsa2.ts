@@ -40,8 +40,6 @@ export default class Rsa2 extends LevelDefinition {
         let {privateKey, publicKey} = RSAAlgorithm.createKeyPairPrivatePublic(state, "Bob's");
         frank.files.push(new Base64Algorithm(state), new MorseCodeAlgorithm(state), new DESAlgorithm(state), new RSAAlgorithm(state), publicKey);
 
-        alice.ai.push(new TimedAutoAction(2, (state) => {
-        }));
         alice.ai.push(new StartOfEachTurnAutoAction((self, turn, state) => {
             if ((turn == 2 || turn == 5 || turn == 8) && self.files.length == 0) {
                 state.spawnMessage(alice, frank, this.createDownloadRequest(state));

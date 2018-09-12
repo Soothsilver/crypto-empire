@@ -82,9 +82,7 @@ export default class MalloryIntro extends LevelDefinition {
 
         chuck.ai.push(new MessageReceivedAutoAction((msg, state)=>{
             if (msg instanceof PlaintextInformation && msg.fulltext == Story.BobToAlice4) {
-                chuck.ai.push(new NextTurnAutoAction((state2) => {
-                    state2.spawnMessage(chuck, mallory, new PlaintextInformation("Meeting plan (forged)", "Be there, or else.", Story.BobToAlice4Fake, state2));
-                }));
+                state.spawnMessage(chuck, mallory, new PlaintextInformation("Meeting plan (forged)", "Be there, or else.", Story.BobToAlice4Fake, state));
             }
         }));
     }

@@ -45,7 +45,10 @@ var context = context || (function () {
 			let subHeight = $sub.height();
 			let subUp = $sub.offset().top;
 			let verticalCollision = (subHeight + subUp) > window.innerHeight - 50;
-			let difference = window.innerHeight - 50 - subHeight - subUp;
+			let difference = (subHeight + subUp) - (window.innerHeight - 50);
+			if (difference > subHeight) {
+				difference = subHeight;
+			}
 			if(collision){
 				$sub.css({
 					left: - subWidth
@@ -56,7 +59,7 @@ var context = context || (function () {
                 console.warn("vertical collision detected");
                 $sub.addClass('dropdown-context-up');
                 $sub.css({
-					top: difference
+					top: -difference
 				});
 			} else {
                 console.warn("vertical collision removed");
