@@ -6,7 +6,7 @@ import LevelDefinition from "../levels/LevelDefinition";
 import {levels} from "../levels/Campaign";
 
 
-
+// TODO elsewhere: if computers change from level to level, their position is not updated
 class App extends React.Component {
     goToMainMenu(): void {
         this.currentLevelDefinition = undefined;
